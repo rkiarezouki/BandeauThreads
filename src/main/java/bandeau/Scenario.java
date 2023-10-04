@@ -41,9 +41,11 @@ public class Scenario {
     public void playOn(Bandeau b) {
         Thread t = new Thread() {
             public void run () {
-                for (ScenarioElement element : myElements) {
-                    for (int repeats = 0; repeats < element.repeats; repeats++) {
-                        element.effect.playOn(b);
+                synchronized (b) {
+                    for (ScenarioElement element : myElements) {
+                        for (int repeats = 0; repeats < element.repeats; repeats++) {
+                            element.effect.playOn(b);
+                        }
                     }
                 }
             }
